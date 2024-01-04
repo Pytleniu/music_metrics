@@ -1,4 +1,4 @@
-name: zprp_2
+name: zprp
 channels:
   - defaults
 dependencies:
@@ -54,4 +54,4 @@ dependencies:
       - urllib3==2.1.0
       - webcolors==1.13
       - xmlschema==2.5.0
-prefix: C:\Users\Wiktor\.conda\envs\zprp
+prefix: C:\Users\micha\anaconda3\envs\zprp
