@@ -13,13 +13,13 @@ music.print()
 print(music21.note.Note("F5"))
 
 # pypianoroll test
-multitrack = pypianoroll.read("tests_fur-elise.mid")
+multitrack = pypianoroll.read("datasets/tests_fur-elise.mid")
 print(multitrack)
 
 # pretty_midi test
-midi_data = pretty_midi.PrettyMIDI('tests_fur-elise.mid')
+midi_data = pretty_midi.PrettyMIDI('datasets/tests_fur-elise.mid')
 print(midi_data.estimate_tempo())
 
 # partitura test
-midi_data = partitura.load_score_midi('tests_fur-elise.mid')
+midi_data = partitura.load_score_midi('datasets/tests_fur-elise.mid')
 print(midi_data.id)

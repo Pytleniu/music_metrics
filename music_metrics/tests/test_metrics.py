@@ -1,30 +1,30 @@
 import pytest
-from ..src.pitch_metrics import get_pitch_metrics
-from ..src.rythm_metrics import get_rythm_metrics
-from ..src.harmonic_metrics import get_harmonic_metrics
+from music_metrics.src.pitch_metrics import get_pitch_metrics
+from music_metrics.src.rythm_metrics import get_rythm_metrics
+from music_metrics.src.harmonic_metrics import get_harmonic_metrics
 
 import pretty_midi
 import pypianoroll
 
 @pytest.fixture
 def midi_file_path():
-    midi_file_path = '../../../datasets/tests_fur-elise.mid'
+    midi_file_path = 'datasets/tests_fur-elise.mid'
     return midi_file_path
 
 @pytest.fixture
 def npz_file_path():
-    npz_file_path = '../../../datasets/b97c529ab9ef783a849b896816001748.npz'
+    npz_file_path = 'datasets/b97c529ab9ef783a849b896816001748.npz'
     return npz_file_path
 
 @pytest.fixture
 def PrettyMIDI_type():
-    midi_file_path = '../../../datasets/tests_fur-elise.mid'
+    midi_file_path = 'datasets/tests_fur-elise.mid'
     midi_data = pretty_midi.PrettyMIDI(midi_file=midi_file_path)
     return midi_data
 
 @pytest.fixture
 def Pianoroll_type():
-    midi_file_path = '../../../datasets/tests_fur-elise.mid'
+    midi_file_path = 'datasets/tests_fur-elise.mid'
     midi_data = pretty_midi.PrettyMIDI(midi_file=midi_file_path)
     pr = pypianoroll.from_pretty_midi(midi_data)
     return pr

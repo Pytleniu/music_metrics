@@ -39,6 +39,7 @@ partitura==1.4.1
 pickleshare==0.7.5
 Pillow==10.1.0
 pretty-midi==0.2.10
+prettytable
 prompt-toolkit==3.0.38
 psutil==5.9.4
 pure-eval==0.2.2
