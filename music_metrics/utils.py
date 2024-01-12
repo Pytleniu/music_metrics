@@ -5,9 +5,11 @@ import music21
 from functools import singledispatch
 import os
 
+
 @singledispatch
 def load_representations(data):
-    return data, data
+    return data, data, data
+
 
 @load_representations.register
 def _(data: str):
@@ -32,11 +34,13 @@ def _(data: str):
     else:
         raise ValueError(f'Unsupported file type: {extension}')
 
+
 @load_representations.register
 def _(data: pypianoroll.Multitrack):
     muspy_representation = muspy.inputs.from_pypianoroll(data)
     midi_representation = muspy.outputs.to_pretty_midi(muspy_representation)
     return muspy_representation, midi_representation, data
+
 
 @load_representations.register
 def _(data: pypianoroll.Track):
@@ -44,11 +48,13 @@ def _(data: pypianoroll.Track):
     midi_representation = muspy.outputs.to_pretty_midi(muspy_representation)
     return muspy_representation, midi_representation, data
 
+
 @load_representations.register
 def _(data: pretty_midi.PrettyMIDI):
     muspy_representation = muspy.inputs.from_pretty_midi(data)
     pianoroll_representation = muspy.outputs.to_pypianoroll(muspy_representation)
     return muspy_representation, data, pianoroll_representation
+
 
 @load_representations.register
 def _(data: music21.stream.Stream):
@@ -57,6 +63,7 @@ def _(data: music21.stream.Stream):
     pianoroll_representation = muspy.outputs.to_pypianoroll(muspy_representation)
     return muspy_representation, midi_representation, pianoroll_representation
 
+
 @load_representations.register
 def _(data: music21.stream.Opus):
     muspy_representation = muspy.inputs.from_music21_opus(data)
@@ -64,12 +71,14 @@ def _(data: music21.stream.Opus):
     pianoroll_representation = muspy.outputs.to_pypianoroll(muspy_representation)
     return muspy_representation, midi_representation, pianoroll_representation
 
+
 @load_representations.register
 def _(data: music21.stream.Part):
     muspy_representation = muspy.inputs.from_music21_part(data)
     midi_representation = muspy.outputs.to_pretty_midi(muspy_representation)
     pianoroll_representation = muspy.outputs.to_pypianoroll(muspy_representation)
     return muspy_representation, midi_representation, pianoroll_representation
+
 
 @load_representations.register
 def _(data: music21.stream.Score):

@@ -1,5 +1,5 @@
 import muspy
-import pypianoroll
+# import pypianoroll
 from prettytable import PrettyTable
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,11 +22,14 @@ pitch_class = {
     11: 'B'
 }
 
+
 def plot_pitch_class_histogram(histogram):
     plt.bar(np.arange(12), histogram)
     plt.xticks(np.arange(12), ['C', '', 'D', '', 'E', 'F', '', 'G', '', 'A', '', 'B'])
     plt.xlabel('Note')
     plt.ylabel('Proportion')
+    plt.show()
+
 
 def plot_chromagram(chromagram):
     plt.figure(figsize=(12, 8))
@@ -36,6 +39,7 @@ def plot_chromagram(chromagram):
     plt.ylabel('Pitch Class (C, C#, D, ..., B)')
     plt.title('Chromagram')
     plt.show()
+
 
 def compute_best_scale(muspy_representation):
     roots = [i for i in range(12)]
@@ -54,12 +58,13 @@ def compute_best_scale(muspy_representation):
 
     return major_scale, minor_scale
 
+
 def get_pitch_metrics(data: any):
-    
+
     muspy_representation, midi_representation, pianoroll_representation = load_representations(data)
 
     pitch_range = n_pitches_used = n_pitch_classes_used = pitch_entropy = \
-    pitch_class_entropy = pitch_class_histogram = chroma = pitch_range_tuple = None
+        pitch_class_entropy = pitch_class_histogram = chroma = None
 
     # muspy
     if muspy_representation:
@@ -86,15 +91,26 @@ def get_pitch_metrics(data: any):
     metrics_table.field_names = ['Metric', 'Value', 'Description']
 
     metric_descriptions = {
-        'pitch_range': "the difference between the maximum pitch value and the minimum pitch value",
+        'pitch_range': "the difference between the maximum pitch value and the minimum "
+        "pitch value",
         'n_pitches_used': "Number of different pitches used",
         'n_pitch_classes_used': "Number of different pitch classes used",
-        'major_scale': "major_scale[0] - most probably major scale, major_scale[1] - probability of that scale",
-        'minor_scale': "minor_scale[0] - most probably minor scale, minor_scale[1] - probability of that scale",
-        'pitch_entropy': "Entropy of pitches (measure of randomness). The greater the entropy value, the greater the pitch variation",
-        'pitch_class_entropy': "Entropy of pitch classes (measure of randomness). The greater the entropy value, the greater the pitch classes variation",
-        'pitch_class_histogram': 'A histogram of the proportions of each sound class to all sounds occurring in the piece. Visualization possible with the plot_chromagram function',
-        'chroma': 'Chromogram - flattened for all instruments occurring in the song at a given moment in time. Allows visualization and analysis of pitch distribution over time. Visualization possible with the plot_pitch_class_histogram function ',
+        'major_scale': "major_scale[0] - most probably major scale, major_scale[1] - "
+                       "probability of that scale",
+        'minor_scale': "minor_scale[0] - most probably minor scale, minor_scale[1] - "
+                       "probability of that scale",
+        'pitch_entropy': "Entropy of pitches (measure of randomness). The greater the "
+                         "entropy value, the greater the pitch variation",
+        'pitch_class_entropy': "Entropy of pitch classes (measure of randomness). The "
+                               "greater the entropy value, the greater the pitch classes "
+                               "variation",
+        'pitch_class_histogram': 'A histogram of the proportions of each sound class to all '
+                                 'sounds occurring in the piece. Visualization possible with '
+                                 'the plot_chromagram function',
+        'chroma': 'Chromogram - flattened for all instruments occurring in the song at a '
+                  'given moment in time. Allows visualization and analysis of pitch '
+                  'distribution over time. Visualization possible with the '
+                  'plot_pitch_class_histogram function ',
     }
 
     pitch_metrics = {

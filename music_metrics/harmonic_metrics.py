@@ -1,8 +1,9 @@
 import muspy
-import pypianoroll
+# import pypianoroll
 from prettytable import PrettyTable
 
 from .utils import load_representations
+
 
 def get_harmonic_metrics(data: any):
 
@@ -28,10 +29,17 @@ def get_harmonic_metrics(data: any):
     metrics_table.field_names = ['Metric', 'Value', 'Description']
 
     metric_descriptions = {
-        'polyphony': 'The average number of sounds played at one time. Percussion tracks are not taken into account.',
-        'polyphony_rate': 'The ratio of temporal moments in which more than one sound is played to the duration of the entire piece. Provides information about the frequency of polyphony in a given piece.',
-        'pitch_class_transition_matrix': 'A transition matrix representing how often each sound class (e.g., C, C#, D, etc.) transitions to another sound class in a song. Used for harmonic analysis of a piece',
-        'tonal_distance': 'The tonal distance between the two specified music rolls. The returned value is a floating point number. Tonal distance is used to describe the degree of harmonic and tonal similarity between two pieces of music.',
+        'polyphony': 'The average number of sounds played at one time. Percussion tracks are not taken into '
+                     'account.',
+        'polyphony_rate': 'The ratio of temporal moments in which more than one sound is played to the duration '
+                          'of the entire piece. Provides information about the frequency of polyphony in a given '
+                          'piece.',
+        'pitch_class_transition_matrix': 'A transition matrix representing how often each sound class (e.g., C, C#, '
+                                         'D, etc.) transitions to another sound class in a song. Used for harmonic '
+                                         'analysis of a piece',
+        'tonal_distance': 'The tonal distance between the two specified music rolls. The returned value is a '
+                          'floating point number. Tonal distance is used to describe the degree of harmonic and '
+                          'tonal similarity between two pieces of music.',
     }
 
     harmonic_metrics = {
