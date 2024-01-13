@@ -5,7 +5,7 @@
 
 # Music metrics
 
-This repository is home to the music_metrics Python package, developed as a part of the Advanced Programming in Python course at Warsaw University of Technology. The `music-metrics` package integrates various music analysis metrics from libraries such as `muspy`, `pretty_midi`, and `pypianoroll`, creating a unified platform for music evaluation. The package categorizes metrics into distinct types: different types of metrics:
+The `music-metrics` is a package that integrates various music analysis metrics from libraries such as `muspy`, `pretty_midi`, and `pypianoroll`, creating a unified platform for music evaluation. This project is developed as a part of the Advanced Programming in Python course at Warsaw University of Technology. The package categorizes metrics into different types:
 - Harmonic metrics
 - Pitch metrics
 - Rhythm metrics
@@ -31,7 +31,7 @@ import music_metrics
 
 ## Contribution guide
 
-Contributions to music_metrics are welcome! If you're interested in enhancing the library or fixing bugs, please follow the steps below to set up your development environment.
+If you're interested in enhancing the library or fixing bugs, please follow the steps below to set up your development environment.
 
 ### Setting Up the Development Environment
 Install the necessary dependencies:
@@ -43,7 +43,6 @@ Verify correct setup and functionality by executing tests with `tox`:
 ```commandline
 tox
 ```
-Your contributions will help improve the library and are greatly appreciated!
 
 ## Summary of current work
 
