@@ -20,7 +20,7 @@ cd music_metrics
 ```
 Install the package:
 ```commandline
-pip install scib
+pip install .
 ```
 To use music-metrics in your Python project, simply import it:
 ```python
