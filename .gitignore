@@ -10,3 +10,4 @@ __pycache__/
 _build/
 .doctrees/
 _buildinfo
+build/
