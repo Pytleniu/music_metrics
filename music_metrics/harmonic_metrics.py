@@ -6,25 +6,51 @@ from .utils import load_representations
 
 
 def get_harmonic_metrics(data: any):
+    """
+    Calculate various harmonic metrics for a given musical data.
 
+    This function analyzes the harmonic aspects of a musical piece, utilizing
+    different representations and libraries to compute metrics like polyphony,
+    polyphony rate, pitch class transition matrix, and tonal distance.
+
+    Parameters
+    ----------
+    data : any
+        The input data for which harmonic metrics are to be calculated.
+        The format of this data is flexible and handled by :func:`utils.load_representations`.
+
+    Returns
+    -------
+    tuple
+        A tuple containing two elements:
+            1. Dictionary of calculated harmonic metrics.
+            2. :class:`PrettyTable` object summarizing these metrics along with their descriptions.
+
+    Notes
+    -----
+    The function currently uses **muspy** for metric calculations.
+    Future implementations may include metrics from other libraries such as **pretty_midi** and **pypianoroll**.
+    """
     muspy_representation, midi_representation, pianoroll_representation = load_representations(data)
 
+    # Initializing metrics
     polyphony = polyphony_rate = pitch_class_transition_matrix = tonal_distance = None
 
-    # muspy
+    # Calculations using muspy
     polyphony = muspy.polyphony(music=muspy_representation)
     polyphony_rate = muspy.polyphony_rate(music=muspy_representation)
 
-    # pretty_midi
+    # Placeholder for pitch_class_transition_matrix calculation (pretty_midi)
     # pitch_class_transition_matrix = midi_representation.get_pitch_class_transition_matrix()
 
-    # pypianoroll
+    # Placeholder for tonal_distance calculation (pypianoroll)
     # tonal_distance = pypianoroll.tonal_distance(
     #     pianoroll_1=pianoroll_representation,
     #     pianoroll_2=pianoroll_representation,
     #     resolution=1
     # )
 
+    # Preparing a table for metrics display
     metrics_table = PrettyTable()
     metrics_table.field_names = ['Metric', 'Value', 'Description']
 
@@ -42,6 +68,7 @@ def get_harmonic_metrics(data: any):
                           'tonal similarity between two pieces of music.',
     }
 
+    # Collecting calculated metrics
     harmonic_metrics = {
         'polyphony': polyphony,
         'polyphony_rate': polyphony_rate,
@@ -49,6 +76,7 @@ def get_harmonic_metrics(data: any):
         'tonal_distance': tonal_distance,
     }
 
+    # Populating the table with metrics and descriptions
     for metric, value in harmonic_metrics.items():
         description = metric_descriptions.get(metric, "")
         metrics_table.add_row([metric, value, description])

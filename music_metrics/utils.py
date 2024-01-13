@@ -8,6 +8,27 @@ import os
 
 @singledispatch
 def load_representations(data):
+    """
+    Load musical data into various representations.
+
+    This function is a single-dispatch generic function that converts input musical data
+    into different formats depending on its type. It supports formats like MIDI, MusicXML,
+    and NPZ, and converts them into muspy, pretty_midi, and pypianoroll representations.
+
+    Parameters
+    ----------
+    data : various types
+        The input musical data which can be in various formats such as file paths,
+        pretty_midi.PrettyMIDI objects, music21.stream objects, etc.
+
+    Returns
+    -------
+    tuple
+        A tuple containing up to three elements based on the input data type:
+            1. muspy representation
+            2. pretty_midi representation
+            3. pypianoroll representation
+    """
     return data, data, data
 
 

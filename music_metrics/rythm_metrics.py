@@ -1,27 +1,56 @@
 import muspy
-import pypianoroll
+# import pypianoroll - can be enabled if needed
 from prettytable import PrettyTable
 
 from .utils import load_representations
 
+
 def get_rythm_metrics(data: any):
-    
+    """
+    Calculate various rhythm-related metrics for a given musical data.
+
+    This function analyzes the rhythm aspects of a musical piece, utilizing
+    different representations and libraries to compute metrics like empty beat rate,
+    drum pattern consistency, groove consistency, tempo changes, and more.
+
+    Parameters
+    ----------
+    data : any
+        The input data for which rhythm metrics are to be calculated.
+        The format of this data is flexible and handled by :func:`utils.load_representations`.
+
+    Returns
+    -------
+    tuple
+        A tuple containing two elements:
+            1. Dictionary of calculated rhythm metrics.
+            2. :class:`PrettyTable` object summarizing these metrics along with their descriptions.
+
+    Notes
+    -----
+    The module currently uses **muspy** and **pretty_midi** for metric calculations.
+    Future implementations may include metrics from other libraries such as **pypianoroll**.
+    """
+
     muspy_representation, midi_representation, pianoroll_representation = load_representations(data)
 
-    empty_beat_rate = drum_in_pattern_rate_duple = drum_in_pattern_rate_triple = drum_pattern_consistency = groove_consistency = \
-    tempo_change_times = tempo = n_times_tempo_change = end_time = \
-    tempos = probabilities = estimate_tempo = beats = beat_start = downbeats = n_beats = \
-    onsets = n_notes = time_signatures = n_signatures = qualified_note_rate = None
+    # Initializing metrics
+    empty_beat_rate = drum_in_pattern_rate_duple = drum_in_pattern_rate_triple = drum_pattern_consistency \
+        = groove_consistency = tempo_change_times = tempo = n_times_tempo_change = end_time = \
+        tempos = probabilities = estimate_tempo = beats = beat_start = downbeats = n_beats = \
+        onsets = n_notes = time_signatures = n_signatures = None
 
-    # muspy
+    # Calculate metrics using muspy
     if muspy_representation:
         empty_beat_rate = muspy.empty_beat_rate(music=muspy_representation)
-        drum_in_pattern_rate_duple = muspy.drum_in_pattern_rate(music=muspy_representation, meter='duple') # meter in ['duple', 'triple']
-        drum_in_pattern_rate_triple = muspy.drum_in_pattern_rate(music=muspy_representation, meter='duple') # meter in ['duple', 'triple']
+        drum_in_pattern_rate_duple = muspy.drum_in_pattern_rate(
+            music=muspy_representation, meter='duple')  # meter in ['duple', 'triple']
+        drum_in_pattern_rate_triple = muspy.drum_in_pattern_rate(
+            music=muspy_representation, meter='duple')  # meter in ['duple', 'triple']
         drum_pattern_consistency = muspy.drum_pattern_consistency(music=muspy_representation)
         groove_consistency = muspy.groove_consistency(music=muspy_representation, measure_resolution=4)
 
-    # pretty_midi
+    # Calculate metrics using pretty_midi
     if midi_representation:
         tempo_change_times, tempo = midi_representation.get_tempo_changes()
         n_times_tempo_change = len(tempo_change_times)
@@ -41,31 +70,42 @@ def get_rythm_metrics(data: any):
     # if pianoroll_representation.any():
     #     qualified_note_rate = pypianoroll.qualified_note_rate(pianoroll_representation, threshold=1)
 
+    # Prepare a table for displaying metrics
     metrics_table = PrettyTable()
     metrics_table.field_names = ['Metric', 'Value', 'Description']
 
     metric_descriptions = {
         'empty_beat_rate': 'The proportion of empty bars in a song to the total number of bars.',
-        'drum_in_pattern_rate_duple': 'The ratio of percussion notes that fit a specific rhythmic pattern (duple) to the total number of percussion notes in the song. Only percussion tracks are taken into account.',
-        'drum_in_pattern_rate_triple': 'The ratio of percussion notes that fit a specific rhythmic pattern (triple) to the total number of percussion notes in the song. Only percussion tracks are taken into account.',
-        'drum_pattern_consistency': 'The largest value of the drum_in_pattern metric. Only percussion tracks are taken into account.',
-        'groove_consistency': 'Returns a floating-point value that determines the regularity and repeatability of the rhythm. The higher the value, the more regular the rhythm is. The value returned by metric can be in the range [0, 1]. The metric is only usable for songs that have a fixed meter and a minimum of two bars.',
-        'tempo_changes': 'A tuple with two elements, the first is an array with the time locations at which the rate changes, the second is an array with the rate values at changed at given times.',
-        'n_times_tempo_change': 'A value that tells how many times the tempo changes during a song.',
-        'end_time': 'Time of the song',
-        'estimate_tempi': 'A tuple with two element, the first is an array of potential tempos for a song in the bpm unit, the second is an array with probability of how well the tempo matches the song.',
-        'estimate_tempo': 'The tempo of the song with the highest probability of matching the song',
-        'beats': 'An array of note time locations depending on the song\'s meter, e.g. for the 6/8 meter it returns the third and sixth eighth notes, while for the 4/4 meter it returns each quarter note.',
-        'beat_start': 'The time location of the beginning of the song',
-        'downbeats': 'An array of first beats in bars expressed in seconds',
-        'n_beats': 'Number of bars with downbeat',
-        'onsets': 'An array with all notes in song',
-        'n_notes': 'Number of all notes in song',
-        'time_signatures': 'An array of musical meter changes in a song, along with timestamps of their occurrences.',
-        'n_signatures': 'Number of musical meter changes',
-        # 'qualified_note_rate': 'The metric returns the proportion of notes considered qualitative i.e. those that last longer than the declared threshold to all notes available in the piece.',
+        'drum_in_pattern_rate_duple': 'The ratio of percussion notes fitting a specific rhythmic pattern '
+                                      '(duple) to the total number of percussion notes. Only percussion '
+                                      'tracks are considered.',
+        'drum_in_pattern_rate_triple': 'The ratio of percussion notes fitting a specific rhythmic pattern '
+                                       '(triple) to the total number of percussion notes. Only percussion '
+                                       'tracks are considered.',
+        'drum_pattern_consistency': 'The largest value of the drum_in_pattern metric. Only percussion tracks '
+                                    'are considered.',
+        'groove_consistency': 'Returns a floating-point value for the regularity and repeatability of the '
+                              'rhythm. Higher values indicate more regular rhythms. Applicable to songs with '
+                              'a fixed meter and a minimum of two bars.',
+        'tempo_changes': 'A tuple: first element is an array of time locations for tempo changes; second is '
+                         'an array of tempo values at those times.',
+        'n_times_tempo_change': 'Number of times the tempo changes during a song.',
+        'end_time': 'Duration of the song.',
+        'estimate_tempi': 'A tuple: first element is an array of potential tempos (bpm); second is an array '
+                          'of probabilities for each tempo.',
+        'estimate_tempo': 'The most likely tempo of the song.',
+        'beats': 'An array of note time locations based on the song\'s meter (e.g., third and sixth '
+                 'eighth notes for 6/8 meter, each quarter note for 4/4 meter).',
+        'beat_start': 'Time location of the beginning of the song.',
+        'downbeats': 'An array of the first beats in bars, expressed in seconds.',
+        'n_beats': 'Number of bars with downbeat.',
+        'onsets': 'An array of all note onsets in the song.',
+        'n_notes': 'Total number of notes in the song.',
+        'time_signatures': 'An array of musical meter changes in the song, with timestamps.',
+        'n_signatures': 'Number of musical meter changes in the song.',
+        # 'qualified_note_rate': 'The proportion of notes longer than a certain threshold to all notes in the piece.'
     }
-
+    # Collecting calculated metrics
     rythm_metrics = {
         'empty_beat_rate': empty_beat_rate,
         'drum_in_pattern_rate_duple': drum_in_pattern_rate_duple,
@@ -87,7 +127,7 @@ def get_rythm_metrics(data: any):
         'n_signatures': n_signatures,
         # 'qualified_note_rate': qualified_note_rate,
     }
-
+    # Populating the table with metrics and descriptions
     for metric, value in rythm_metrics.items():
         description = metric_descriptions.get(metric, "")
         metrics_table.add_row([metric, value, description])
