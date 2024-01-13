@@ -44,7 +44,7 @@ def plot_chromagram(chromagram):
     chromagram : array-like
         A 2D array representing the intensity of pitch classes over time.
     """
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(10, 5))
     plt.imshow(chromagram, aspect='auto', origin='lower', cmap='viridis')
     plt.colorbar(label='Intensity')
     plt.xlabel('Time (in 1/fs seconds)')
