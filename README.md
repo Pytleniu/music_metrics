@@ -3,7 +3,7 @@
 
 # Music metrics
 
-This repository hosts the source code for `music_metrics`, a Python package developed as part of the Advanced Programming in Python course at Warsaw University of Technology. The music-metrics package integrates various music metrics from libraries such as `muspy` and `pypianoroll`, offering a consolidated toolkit for music analysis. The package is structured around different types of metrics:
+This repository hosts the source code for `music_metrics`, a Python package developed as part of the Advanced Programming in Python course at Warsaw University of Technology. The music-metrics package integrates various music metrics from libraries such as `muspy`, `pretty_midi` and `pypianoroll`, offering a consolidated toolkit for music analysis. The package is structured around different types of metrics:
 - Harmonic metrics
 - Pitch metrics
 - Rhythm metrics
