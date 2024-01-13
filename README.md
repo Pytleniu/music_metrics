@@ -36,7 +36,7 @@ Contributions to music_metrics are welcome! If you're interested in enhancing th
 ### Setting Up the Development Environment
 Install the necessary dependencies:
 ```commandline
-pip install -r requirements
+pip install -r requirements.txt
 ```
 ### Running Tests
 Verify correct setup and functionality by executing tests with `tox`:
