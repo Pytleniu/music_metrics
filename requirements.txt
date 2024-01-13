@@ -61,7 +61,6 @@ mido==1.3.2
 mistune==3.0.2
 more-itertools==10.2.0
 music21==9.1.0
--e git+https://gitlab-stud.elka.pw.edu.pl/wpytlew1/zprp-projekt-zespol-16.git@5ef1d21eeaa4cf2889172ae4e66d80a5aa8d7e02#egg=music_metrics
 muspy==0.5.0
 nbclient==0.9.0
 nbconvert==7.14.1
