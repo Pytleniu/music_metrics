@@ -1,6 +1,8 @@
 # ZPRP - Projekt zespół 16
 ### Authors: Michał Kopeć, Wiktor Pytlewski
 
+[**View the Documentation**](https://music-metrics.readthedocs.io/en/latest/index.html)
+
 # Music metrics
 
 This repository is home to the music_metrics Python package, developed as a part of the Advanced Programming in Python course at Warsaw University of Technology. The `music-metrics` package integrates various music analysis metrics from libraries such as `muspy`, `pretty_midi`, and `pypianoroll`, creating a unified platform for music evaluation. The package categorizes metrics into distinct types: different types of metrics:
