@@ -18,28 +18,24 @@ def test_dir():
 
 @pytest.fixture
 def midi_file_path(test_dir):
-    # midi_file_path = 'datasets/tests_fur-elise.mid'
-    midi_file_path = test_dir / '..' / 'datasets' / 'tests_fur-elise.mid'
+    midi_file_path = test_dir / '..' / 'datasets' / 'test_data.mid'
     return str(midi_file_path.resolve())
 
 
 @pytest.fixture
 def npz_file_path(test_dir):
-    # npz_file_path = 'datasets/b97c529ab9ef783a849b896816001748.npz'
-    npz_file_path = test_dir / '..' / 'datasets' / 'b97c529ab9ef783a849b896816001748.npz'
+    npz_file_path = test_dir / '..' / 'datasets' / 'test_data.npz'
     return str(npz_file_path.resolve())
 
 
 @pytest.fixture
 def PrettyMIDI_type(midi_file_path):
-    # midi_file_path = 'datasets/tests_fur-elise.mid'
     midi_data = pretty_midi.PrettyMIDI(midi_file=midi_file_path)
     return midi_data
 
 
 @pytest.fixture
 def Pianoroll_type(midi_file_path):
-    # midi_file_path = 'datasets/tests_fur-elise.mid'
     midi_data = pretty_midi.PrettyMIDI(midi_file=midi_file_path)
     pr = pypianoroll.from_pretty_midi(midi_data)
     return pr

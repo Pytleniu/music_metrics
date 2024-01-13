@@ -6,8 +6,8 @@ from pathlib import Path
 
 script_dir = Path(os.path.dirname(os.path.abspath(__file__)))
 
-MIDI_FILE_PATH = script_dir / '..' / 'datasets' / 'tests_fur-elise.mid'
-PR_FILE_PATH = script_dir / '..' / 'datasets' / 'b97c529ab9ef783a849b896816001748.npz'
+MIDI_FILE_PATH = script_dir / '..' / 'datasets' / 'test_data.mid'
+PR_FILE_PATH = script_dir / '..' / 'datasets' / 'test_data.npz'
 
 MIDI_FILE_PATH = str(MIDI_FILE_PATH.resolve())
 PR_FILE_PATH = str(PR_FILE_PATH.resolve())
