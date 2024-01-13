@@ -1,7 +1,12 @@
 test2/
 music_metrics.egg-info/
 pytest_cache/
+*.pyc
 __pycache__/
 .pytest_cache/
 .vscode/
 .tox/
+# Sphinx documentation
+_build/
+.doctrees/
+_buildinfo
